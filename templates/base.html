@@ -1,0 +1,72 @@
+{% load static %}
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{% block title %}Beauty Salon{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    {% block extra_css %}{% endblock %}
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header class="site-header">
+      <nav class="navbar">
+        <div class="navbar__brand">
+          <a href="{#}">Beauty Salon</a>
+        </div>
+
+        <ul class="navbar__menu">
+          <li><a href="{#}">Accueil</a></li>
+          <li><a href="{#}">Services</a></li>
+          <li><a href="{#}">Réserver</a></li>
+          <li><a href="{#}">À propos</a></li>
+          <li><a href="{#}">Contact</a></li>
+        </ul>
+
+        <div class="navbar__auth">
+          {% if user.is_authenticated %}
+          <a href="{#}">Mon compte</a>
+          <a href="{#}">Déconnexion</a>
+          {% else %}
+          <a href="{#}">Connexion</a>
+          <a href="{#}">Inscription</a>
+          {% endif %}
+        </div>
+      </nav>
+    </header>
+
+    <!-- Messages Django -->
+    {% if messages %}
+    <section class="messages">
+      {% for message in messages %}
+      <div class="message message--{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    </section>
+    {% endif %}
+
+    <!-- Contenu principal -->
+    <main class="main-content">{% block content %} {% endblock %}</main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="footer__content">
+        <p>&copy; {% now "Y" %} Beauty Salon. Tous droits réservés.</p>
+
+        <div class="footer__links">
+          <a href="{#}">Accueil</a>
+          <a href="{#}">Services</a>
+          <a href="{#}">Réservation</a>
+          <a href="{#}">Contact</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="{#}"></script>
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>
