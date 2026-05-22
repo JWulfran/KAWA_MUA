@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Nos services{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/services.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="services">
+  <div class="services__header">
+    <h1>Nos services</h1>
+    <p>Découvrez nos prestations de maquillage et de coiffure.</p>
+  </div>
+
+  <div class="services__grid">
+    {% for service in services %}
+      <article class="service-card">
+        {% if service.image %}
+          <div class="service-card__image">
+            <img src="{{ service.image.url }}" alt="{{ service.name }}">
+          </div>
+        {% endif %}
+
+        <div class="service-card__content">
+          <span>{{ service.get_category_display }}</span>
+          <h2>{{ service.name }}</h2>
+          <p>{{ service.description|truncatewords:20 }}</p>
+
+          <div class="service-card__footer">
+            <strong>{{ service.price }} $</strong>
+            <small>{{ service.duration }} min</small>
+          </div>
+
+          <a href="{% url 'services:service_detail' service.pk %}">
+            Voir le service
+          </a>
+        </div>
+      </article>
+    {% empty %}
+      <p>Aucun service disponible pour le moment.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<style></style>
+
+{% endblock %}

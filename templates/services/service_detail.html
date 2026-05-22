@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/services.css' %}">
+{% endblock %}
+
+{% block title %}{{ service.name }}{% endblock %}
+
+{% block content %}
+
+<section class="service-detail">
+  {% if service.image %}
+    <img src="{{ service.image.url }}" alt="{{ service.name }}">
+  {% endif %}
+
+  <div class="service-detail__content">
+    <span>{{ service.get_category_display }}</span>
+    <h1>{{ service.name }}</h1>
+
+    <p>{{ service.description }}</p>
+
+    <ul>
+      <li>Prix : {{ service.price }} $</li>
+      <li>Durée : {{ service.duration }} minutes</li>
+    </ul>
+
+    <div class="service-detail__actions">
+  <a 
+    href="{% url 'services:service_list' %}"
+    class="service-detail__back"
+  >
+    Retour aux services
+  </a>
+
+  <a 
+    href="#"
+    class="service-detail__book"
+  >
+    Réserver ce service
+  </a>
+</div>
+  </div>
+</section>
+
+{% endblock %}
